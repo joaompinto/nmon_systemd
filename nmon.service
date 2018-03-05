@@ -1,0 +1,18 @@
+# /etc/systemd/system/nmon.service
+
+[Unit]
+Description=Collect system stats using nmon
+
+
+[Service]
+Type=forking
+WorkingDirectory=/var/log/nmon
+ExecStart=/usr/local/bin/nmon -f -T -s 300 -c -1
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

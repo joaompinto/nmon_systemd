@@ -1,0 +1,21 @@
+# /etc/logrodate.d/nmon
+
+/var/log/nmon/*.nmon {
+  compress
+  olddir old
+  daily
+  rotate 15
+  size 0
+  nocreate
+  nocopy
+  nomail
+  missingok
+  extension .nmon
+  sharedscripts
+  prerotate
+    systemctl stop nmon
+  endscript
+  postrotate
+    systemctl start nmon
+  endscript
+}
